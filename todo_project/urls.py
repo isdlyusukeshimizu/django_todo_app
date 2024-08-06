@@ -19,8 +19,15 @@ from django.contrib import admin
 from django.urls import path, include
 from todo.views import todo_list  # Make sure todo_list is imported correctly
 
+from django.contrib.auth import views as auth_views
+from todo import views as todo_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('todo/', include('todo.urls')),
-    path('', todo_list, name='home'),
+    path('', auth_views.LoginView.as_view(template_name='registration/login.html'), name='home'),  # ルートURLをログインページに
+    
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('signup/', todo_views.signup, name='signup'),  # 後で実装するサインアップビュー
 ]

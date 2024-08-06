@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,12 +51,22 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+# ログイン後のリダイレクト先
+LOGIN_REDIRECT_URL = '/todo/'
+
+# ログアウト後のリダイレクト先
+LOGOUT_REDIRECT_URL = '/login/'
+
+# ログインURL（デフォルトのログインビューを使用する場合）
+LOGIN_URL = '/login/'
+
 ROOT_URLCONF = 'todo_project.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # テンプレートディレクトリを指定
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
